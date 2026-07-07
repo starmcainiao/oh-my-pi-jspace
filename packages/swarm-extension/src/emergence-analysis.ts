@@ -55,6 +55,8 @@ export interface ConvergenceResult {
 	finalOccupancyAvg: number;
 	/** Churn rate: fractions of slots replaced per N observations. */
 	churnRate: number;
+	/** Jaccard similarity between consecutive snapshots (0=completely different, 1=identical). */
+	jaccardOverTime: Array<{ seq: number; jaccard: number }>;
 }
 
 export interface EmergenceReport {
@@ -75,7 +77,7 @@ export function analyzeEmergence(
 	if (observations.length === 0) {
 		return {
 			centrality: { byReadership: [], byReadVolume: [], coreConcepts: [], broadcastConcepts: [] },
-			convergence: { occupancyOverTime: [], converged: false, finalOccupancyAvg: 0, churnRate: 0 },
+			convergence: { occupancyOverTime: [], converged: false, finalOccupancyAvg: 0, churnRate: 0, jaccardOverTime: [] },
 			agents: [],
 			observationCount: 0,
 			totalAgents: 0,
@@ -92,6 +94,7 @@ export function analyzeEmergence(
 	const conceptLastSeq = new Map<string, number>();
 	const agentStats = new Map<string, { writes: number; reads: number; keysWritten: Set<string>; keysRead: Set<string> }>();
 	const occupancyTrace: Array<{ seq: number; occupancy: number; capacity: number }> = [];
+	const snapshotKeySets: Array<{ seq: number; keys: Set<string> }> = [];
 
 	let capacity = 16;
 
@@ -132,6 +135,7 @@ export function analyzeEmergence(
 		if (obs.type === "snapshot" && obs.snapshot) {
 			if (finalSnapshot) capacity = finalSnapshot.capacity;
 			occupancyTrace.push({ seq: obs.seq, occupancy: obs.snapshot.length, capacity });
+			snapshotKeySets.push({ seq: obs.seq, keys: new Set(obs.snapshot.map((s) => s.key)) });
 		}
 	}
 
@@ -179,6 +183,16 @@ export function analyzeEmergence(
 		? observations.filter((o) => o.type === "evict").length / observations.length
 		: 0;
 
+
+	// Jaccard similarity between consecutive snapshots
+	const jaccardOverTime: Array<{ seq: number; jaccard: number }> = [];
+	for (let i = 1; i < snapshotKeySets.length; i++) {
+		const prev = snapshotKeySets[i - 1];
+		const curr = snapshotKeySets[i];
+		const intersection = [...prev.keys].filter((k) => curr.keys.has(k)).length;
+		const union = new Set([...prev.keys, ...curr.keys]).size;
+		jaccardOverTime.push({ seq: curr.seq, jaccard: union > 0 ? intersection / union : 1 });
+	}
 	// Duration
 	const firstTs = observations.length > 0 ? new Date(observations[0].timestamp).getTime() : Date.now();
 	const lastTs = observations.length > 0 ? new Date(observations[observations.length - 1].timestamp).getTime() : Date.now();
@@ -195,6 +209,7 @@ export function analyzeEmergence(
 			converged,
 			finalOccupancyAvg,
 			churnRate,
+			jaccardOverTime,
 		},
 		agents: [...agentStats.entries()]
 			.map(([agentId, s]) => ({

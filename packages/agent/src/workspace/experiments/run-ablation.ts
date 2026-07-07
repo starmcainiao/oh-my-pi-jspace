@@ -18,7 +18,7 @@
  *   ./ablation-results/  — JSON results per config + aggregate
  */
 
-import { getDefaultBenchmarkTasks, aggregateAblationResults, type AblationConfig, type AblationExperimentResult, type TaskResult, ABLATION_CONFIGS } from "../experiments/ablation";
+import { getDefaultBenchmarkTasks, aggregateAblationResults, type AblationConfig, type AblationExperimentResult, type TaskResult, ABLATION_CONFIGS } from "./ablation";
 import { WorkspaceBus } from "../bus";
 
 // Parse args

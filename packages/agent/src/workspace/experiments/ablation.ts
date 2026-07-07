@@ -131,8 +131,33 @@ export function aggregateAblationResults(
 	};
 
 	for (const t of tasks) {
-		// We don't have complexity info on TaskResult directly, so we reconstruct
-		// from taskId naming convention or later from the benchmark spec
+		let complexity: TaskComplexity | undefined;
+		if (t.taskId.startsWith("simple_")) {
+			complexity = "simple";
+		} else if (t.taskId.startsWith("multi_")) {
+			complexity = "multi_step";
+		} else if (t.taskId.startsWith("creative_")) {
+			complexity = "creative";
+		}
+
+		if (complexity === undefined) continue;
+
+		const bin = byComplexity[complexity];
+		bin.total++;
+		if (t.completed) {
+			bin.completed++;
+			bin.avgTurns += t.turns.length;
+		}
+		if (t.correct === true) {
+			bin.correct++;
+		}
+	}
+	// Normalize avgTurns after counting
+	for (const key of Object.keys(byComplexity) as TaskComplexity[]) {
+		const bin = byComplexity[key];
+		if (bin.completed > 0) {
+			bin.avgTurns = bin.avgTurns / bin.completed;
+		}
 	}
 
 	const completed = tasks.filter((t) => t.completed);
