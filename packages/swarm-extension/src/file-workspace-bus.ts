@@ -16,7 +16,7 @@ import {
 	type WorkspaceSlot,
 	type WorkspaceSlotKind,
 	type WorkspaceChangeEvent,
-} from "@oh-my-pi/pi-agent-core/workspace";
+} from "../../agent/src/workspace/index";
 
 /**
  * A single observation written to the append log.
