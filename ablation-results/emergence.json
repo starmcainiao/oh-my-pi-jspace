@@ -1,0 +1,378 @@
+{
+  "observations": [
+    {
+      "seq": 1,
+      "type": "write",
+      "agentId": "reader",
+      "slot": {
+        "key": "file:README.md",
+        "value": "found",
+        "source": "tool:read",
+        "kind": "fact",
+        "importance": 0.6
+      }
+    },
+    {
+      "seq": 2,
+      "type": "snapshot",
+      "agentId": "orchestrator",
+      "snapshot": [
+        {
+          "key": "file:README.md",
+          "value": "seen",
+          "source": "reader",
+          "kind": "fact"
+        }
+      ]
+    },
+    {
+      "seq": 3,
+      "type": "write",
+      "agentId": "searcher",
+      "slot": {
+        "key": "concept:WorkspaceBus",
+        "value": "found",
+        "source": "tool:read",
+        "kind": "fact",
+        "importance": 0.6
+      }
+    },
+    {
+      "seq": 4,
+      "type": "write",
+      "agentId": "searcher",
+      "slot": {
+        "key": "file:bus.ts",
+        "value": "found",
+        "source": "tool:read",
+        "kind": "fact",
+        "importance": 0.6
+      }
+    },
+    {
+      "seq": 5,
+      "type": "snapshot",
+      "agentId": "orchestrator",
+      "snapshot": [
+        {
+          "key": "concept:WorkspaceBus",
+          "value": "seen",
+          "source": "searcher",
+          "kind": "fact"
+        },
+        {
+          "key": "file:bus.ts",
+          "value": "seen",
+          "source": "searcher",
+          "kind": "fact"
+        }
+      ]
+    },
+    {
+      "seq": 6,
+      "type": "write",
+      "agentId": "builder",
+      "slot": {
+        "key": "dir:workspace",
+        "value": "found",
+        "source": "tool:read",
+        "kind": "fact",
+        "importance": 0.6
+      }
+    },
+    {
+      "seq": 7,
+      "type": "write",
+      "agentId": "builder",
+      "slot": {
+        "key": "file:bus.ts",
+        "value": "found",
+        "source": "tool:read",
+        "kind": "fact",
+        "importance": 0.6
+      }
+    },
+    {
+      "seq": 8,
+      "type": "snapshot",
+      "agentId": "orchestrator",
+      "snapshot": [
+        {
+          "key": "dir:workspace",
+          "value": "seen",
+          "source": "builder",
+          "kind": "fact"
+        },
+        {
+          "key": "file:bus.ts",
+          "value": "seen",
+          "source": "builder",
+          "kind": "fact"
+        }
+      ]
+    },
+    {
+      "seq": 9,
+      "type": "write",
+      "agentId": "analyst",
+      "slot": {
+        "key": "lang:TypeScript",
+        "value": "found",
+        "source": "tool:read",
+        "kind": "fact",
+        "importance": 0.6
+      }
+    },
+    {
+      "seq": 10,
+      "type": "snapshot",
+      "agentId": "orchestrator",
+      "snapshot": [
+        {
+          "key": "lang:TypeScript",
+          "value": "seen",
+          "source": "analyst",
+          "kind": "fact"
+        }
+      ]
+    },
+    {
+      "seq": 11,
+      "type": "write",
+      "agentId": "reader",
+      "slot": {
+        "key": "dir:workspace",
+        "value": "found",
+        "source": "tool:read",
+        "kind": "fact",
+        "importance": 0.6
+      }
+    },
+    {
+      "seq": 12,
+      "type": "write",
+      "agentId": "reader",
+      "slot": {
+        "key": "file:bus.ts",
+        "value": "found",
+        "source": "tool:read",
+        "kind": "fact",
+        "importance": 0.6
+      }
+    },
+    {
+      "seq": 13,
+      "type": "snapshot",
+      "agentId": "orchestrator",
+      "snapshot": [
+        {
+          "key": "dir:workspace",
+          "value": "seen",
+          "source": "reader",
+          "kind": "fact"
+        },
+        {
+          "key": "file:bus.ts",
+          "value": "seen",
+          "source": "reader",
+          "kind": "fact"
+        }
+      ]
+    }
+  ],
+  "emergenceReport": {
+    "centrality": {
+      "byReadership": [
+        {
+          "key": "file:README.md",
+          "totalWrites": 1,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 1,
+          "firstWriteSeq": 1,
+          "lastWriteSeq": 1,
+          "lifespanSeqs": 0
+        },
+        {
+          "key": "concept:WorkspaceBus",
+          "totalWrites": 1,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 1,
+          "firstWriteSeq": 3,
+          "lastWriteSeq": 3,
+          "lifespanSeqs": 0
+        },
+        {
+          "key": "file:bus.ts",
+          "totalWrites": 3,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 3,
+          "firstWriteSeq": 4,
+          "lastWriteSeq": 12,
+          "lifespanSeqs": 8
+        },
+        {
+          "key": "dir:workspace",
+          "totalWrites": 2,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 2,
+          "firstWriteSeq": 6,
+          "lastWriteSeq": 11,
+          "lifespanSeqs": 5
+        },
+        {
+          "key": "lang:TypeScript",
+          "totalWrites": 1,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 1,
+          "firstWriteSeq": 9,
+          "lastWriteSeq": 9,
+          "lifespanSeqs": 0
+        }
+      ],
+      "byReadVolume": [
+        {
+          "key": "file:README.md",
+          "totalWrites": 1,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 1,
+          "firstWriteSeq": 1,
+          "lastWriteSeq": 1,
+          "lifespanSeqs": 0
+        },
+        {
+          "key": "concept:WorkspaceBus",
+          "totalWrites": 1,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 1,
+          "firstWriteSeq": 3,
+          "lastWriteSeq": 3,
+          "lifespanSeqs": 0
+        },
+        {
+          "key": "file:bus.ts",
+          "totalWrites": 3,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 3,
+          "firstWriteSeq": 4,
+          "lastWriteSeq": 12,
+          "lifespanSeqs": 8
+        },
+        {
+          "key": "dir:workspace",
+          "totalWrites": 2,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 2,
+          "firstWriteSeq": 6,
+          "lastWriteSeq": 11,
+          "lifespanSeqs": 5
+        },
+        {
+          "key": "lang:TypeScript",
+          "totalWrites": 1,
+          "totalReads": 0,
+          "readerCount": 0,
+          "writerCount": 1,
+          "firstWriteSeq": 9,
+          "lastWriteSeq": 9,
+          "lifespanSeqs": 0
+        }
+      ],
+      "coreConcepts": [],
+      "broadcastConcepts": []
+    },
+    "convergence": {
+      "occupancyOverTime": [
+        {
+          "seq": 2,
+          "occupancy": 1,
+          "capacity": 16
+        },
+        {
+          "seq": 5,
+          "occupancy": 2,
+          "capacity": 16
+        },
+        {
+          "seq": 8,
+          "occupancy": 2,
+          "capacity": 16
+        },
+        {
+          "seq": 10,
+          "occupancy": 1,
+          "capacity": 16
+        },
+        {
+          "seq": 13,
+          "occupancy": 2,
+          "capacity": 16
+        }
+      ],
+      "converged": false,
+      "finalOccupancyAvg": 1.5,
+      "churnRate": 0
+    },
+    "agents": [
+      {
+        "agentId": "reader",
+        "writeCount": 3,
+        "readCount": 0,
+        "keysWritten": [
+          "dir:workspace",
+          "file:README.md",
+          "file:bus.ts"
+        ],
+        "keysRead": []
+      },
+      {
+        "agentId": "searcher",
+        "writeCount": 2,
+        "readCount": 0,
+        "keysWritten": [
+          "concept:WorkspaceBus",
+          "file:bus.ts"
+        ],
+        "keysRead": []
+      },
+      {
+        "agentId": "builder",
+        "writeCount": 2,
+        "readCount": 0,
+        "keysWritten": [
+          "dir:workspace",
+          "file:bus.ts"
+        ],
+        "keysRead": []
+      },
+      {
+        "agentId": "analyst",
+        "writeCount": 1,
+        "readCount": 0,
+        "keysWritten": [
+          "lang:TypeScript"
+        ],
+        "keysRead": []
+      },
+      {
+        "agentId": "orchestrator",
+        "writeCount": 0,
+        "readCount": 0,
+        "keysWritten": [],
+        "keysRead": []
+      }
+    ],
+    "observationCount": 13,
+    "totalAgents": 5,
+    "durationMs": null
+  },
+  "timestamp": "2026-07-07T02:58:45.423Z"
+}

@@ -1,0 +1,67 @@
+{
+  "control": [
+    {
+      "taskId": "simple_read",
+      "complexity": "simple",
+      "workspaceEnabled": false,
+      "exitCode": 0,
+      "approxTokens": 86,
+      "durationMs": 7865,
+      "output": "found README about J-space experiments"
+    },
+    {
+      "taskId": "simple_grep",
+      "complexity": "simple",
+      "workspaceEnabled": false,
+      "exitCode": 0,
+      "approxTokens": 47,
+      "durationMs": 17047,
+      "output": "found WorkspaceBus exports"
+    },
+    {
+      "taskId": "multi_find_edit",
+      "complexity": "multi_step",
+      "workspaceEnabled": false,
+      "exitCode": 0,
+      "approxTokens": 156,
+      "durationMs": 26449,
+      "output": "found bus.ts, analyzed imports"
+    },
+    {
+      "taskId": "multi_debug",
+      "complexity": "multi_step",
+      "workspaceEnabled": false,
+      "exitCode": 0,
+      "approxTokens": 177,
+      "durationMs": 53640,
+      "output": "analyzed test patterns"
+    }
+  ],
+  "workspace": [
+    {
+      "taskId": "simple_read",
+      "workspaceEnabled": true,
+      "exitCode": 0,
+      "approxTokens": 38,
+      "durationMs": 7063,
+      "error": null
+    },
+    {
+      "taskId": "simple_grep",
+      "workspaceEnabled": true,
+      "exitCode": 0,
+      "approxTokens": 96,
+      "durationMs": 27379,
+      "error": null
+    },
+    {
+      "taskId": "multi_find_edit",
+      "workspaceEnabled": true,
+      "exitCode": 0,
+      "approxTokens": 205,
+      "durationMs": 23911,
+      "error": null
+    }
+  ],
+  "timestamp": "2026-07-07T02:56:19.924Z"
+}
